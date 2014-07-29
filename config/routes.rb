@@ -1,19 +1,10 @@
 Rails.application.routes.draw do
+    
+  resources :notes, only: [:index, :create, :update, :destroy]
+
+
   root 'notes#index'
 
-  post 'notes/create'
-
-  # get 'notes/show'
-
-  # get 'notes/new'
-
-  # get 'notes/create'
-
-  # get 'notes/edit'
-
-  # get 'notes/update'
-
-  # get 'notes/destroy'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
