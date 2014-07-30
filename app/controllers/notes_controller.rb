@@ -12,9 +12,18 @@ class NotesController < ApplicationController
   end
 
   def create
-    @note = Note.create(note_params)
-    @note.save
-    redirect_to root_path
+    @note = Note.new(note_params)
+
+    respond_to do |format|
+      if @note.save
+        format.html { redirect_to @note, notice: 'Note was successfully created.'}
+        format.js {}
+        format.json { render json: @user, status: :created, location: @user}
+      else
+        format.html { render action: "new"}
+        format.json { render json: @note.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def edit

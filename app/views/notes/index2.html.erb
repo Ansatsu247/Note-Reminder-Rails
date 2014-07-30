@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Notes</title>
+</head>
+<body>
+	<% @notes.each do |note| %>
+	<div class="row">
+		<%= form_for @new_notes, url: note_path(note), method: :patch do |f| %>
+			<h2 class='label'><%= note.title %><h2>
+			<%= f.text_field :comment, :value => note.comment %>
+			<div class="row">
+			<%= f.submit "Update", :class => "tiny button radius" %>
+
+		<% end %>
+		<%= link_to "Delete", note_path(note), :class => "tiny button radius", method: :delete  %>
+			</div>
+	</div>
+	<% end %>
+	<%= form_for @new_notes, remote: true do |f| %>
+		<div class="row">
+			<div class="small-7 large-4 columns left">
+				Title: <%= f.text_field :title %>
+			</div>
+		</div>
+		<div class="row">
+			<div class="small-7 large-4 columns left">
+				Comment: <%= f.text_field :comment %>
+			</div>
+		</div>
+		<div class="row">
+			<div class="small-7 large-4 columns left">
+				<%= f.submit nil, :class => 'tiny button radius' %>
+			</div>
+		<div>
+	<% end %>
+
+</body>
