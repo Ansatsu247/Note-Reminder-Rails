@@ -2,7 +2,6 @@ class NotesController < ApplicationController
   def index
     @notes = Note.all
     @new_notes = Note.new
-    @update_notes = Note.new
   end
 
   def show
@@ -18,7 +17,7 @@ class NotesController < ApplicationController
       if @note.save
         format.html { redirect_to @note, notice: 'Note was successfully created.'}
         format.js {}
-        format.json { render json: @user, status: :created, location: @user}
+        format.json { render json: @note, status: :created, location: @note}
       else
         format.html { render action: "new"}
         format.json { render json: @note.errors, status: :unprocessable_entity }
@@ -31,14 +30,14 @@ class NotesController < ApplicationController
 
   def update
     @note = Note.find(params[:id])
-    @note.comment = params[:note][:comment]
-    @note.save
-    redirect_to root_path
+    @note.update(note_params)
+    head :ok
   end
 
   def destroy
     @note = Note.find(params[:id]).destroy
-    redirect_to root_path
+    head :ok
+    #return 200 status after ajax destroy
   end
 
   private

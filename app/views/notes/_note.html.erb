@@ -1,8 +1,5 @@
-<div class="row">
-	<h2 class="tiny button radius"><%= note.title %></h2>
-	<%= form_for @new_notes, url: note_path(note), method: :patch do |f| %>
-		<%= f.text_area :comment, :value => note.comment%>
-		<%= f.submit "Update", :class => "tiny button radius" %>
-		<%= link_to "Delete", note_path(note), :class => "tiny button radius", method: :delete  %>
-	<% end %>
+<div class="row note" contenteditable="true">
+	<h2 class="tiny button radius title" contenteditable="false"><%= note.title %></h2>
+	<p class="comment"><%= note.comment %></p> 
+	<p contenteditable="false"><%= link_to "Delete", note_path(note), :class => "tiny button radius delete", remote: true, method: :delete  %></p>
 </div>
